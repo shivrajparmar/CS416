@@ -9,11 +9,14 @@ body {
 }
 
 nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #333;
-    text-align: center;
 }
 
 nav button {
@@ -21,10 +24,16 @@ nav button {
     color: white;
     border: none;
     padding: 10px 20px;
-    margin: 10px;
+    margin: 0 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 nav button:hover {
     background-color: #555;
+}
+
+nav button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
 }
