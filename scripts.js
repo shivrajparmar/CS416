@@ -59,3 +59,17 @@ function updateNavButtons() {
     document.getElementById('prevBtn').disabled = (currentPageIndex === 0);
     document.getElementById('nextBtn').disabled = (currentPageIndex === pages.length - 1);
 }
+
+
+function loadMap() {
+    // D3.js code to create the map visualization
+}
+
+function loadBarChart() {
+    // D3.js code to create the bar chart visualization
+}
+
+function loadLineChart() {
+    // D3.js code to create the line chart visualization
+}
+
