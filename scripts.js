@@ -74,6 +74,7 @@ function loadLineChart() {
     const parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
 
     d3.csv("USA Housing Dataset.csv").then(data => {
+        console.log("Data loaded:", data); // Debugging
         data.forEach(d => {
             d.date = parseDate(d.date);
             d.price = +d.price;
@@ -113,5 +114,7 @@ function loadLineChart() {
             .attr("text-anchor", "middle")
             .style("fill", "red")
             .text("Example Peak");
+    }).catch(error => {
+        console.error("Error loading the CSV file:", error); // Debugging
     });
 }
