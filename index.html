@@ -3,32 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Literacy Rates Visualization</title>
+    <title>Global Youth & Adult Literacy Rates</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 </head>
 <body>
-    <div id="visualization"></div>
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://d3-annotation.susielu.com/"></script>
+    <div id="content"></div>
+    <nav>
+        <button id="btn1">Introduction</button>
+        <button id="btn2">Regional Disparities</button>
+        <button id="btn3">Trends Over Time</button>
+    </nav>
     <script src="scripts.js"></script>
 </body>
 </html>
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f9f9f9;
-}
-
-#visualization {
-    width: 80%;
-    height: 80%;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
