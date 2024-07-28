@@ -37,3 +37,18 @@ nav button:disabled {
     background-color: #666;
     cursor: not-allowed;
 }
+
+.country {
+    stroke: #fff;
+    stroke-width: 0.5px;
+}
+
+.tooltip {
+    position: absolute;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    pointer-events: none;
+    font-size: 12px;
+}
