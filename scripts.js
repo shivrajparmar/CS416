@@ -73,7 +73,7 @@ function loadLineChart() {
 
     const parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
 
-    d3.csv("USA_Housing_Dataset.csv").then(data => {
+    d3.csv("USA Housing Dataset.csv").then(data => {
         data.forEach(d => {
             d.date = parseDate(d.date);
             d.price = +d.price;
