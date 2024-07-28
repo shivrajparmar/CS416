@@ -43,6 +43,7 @@ nav button:disabled {
     stroke-width: 0.5px;
 }
 
+
 .tooltip {
     position: absolute;
     background-color: white;
