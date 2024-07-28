@@ -38,11 +38,6 @@ nav button:disabled {
     cursor: not-allowed;
 }
 
-.country {
-    stroke: #fff;
-    stroke-width: 0.5px;
-}
-
 .tooltip {
     position: absolute;
     background-color: white;
