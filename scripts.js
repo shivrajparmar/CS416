@@ -71,7 +71,7 @@ function loadBoxPlotByBedrooms() {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    d3.csv("USA_Housing_Dataset.csv").then(data => {
+    d3.csv("USA Housing Dataset.csv").then(data => {
         data.forEach(d => {
             d.price = +d.price;
             d.bedrooms = +d.bedrooms;
