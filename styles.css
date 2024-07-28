@@ -47,3 +47,16 @@ nav button:disabled {
     pointer-events: none;
     font-size: 12px;
 }
+
+.box {
+    fill: steelblue;
+    stroke: black;
+    stroke-width: 1px;
+}
+
+.median,
+.min,
+.max {
+    stroke: black;
+    stroke-width: 2px;
+}
