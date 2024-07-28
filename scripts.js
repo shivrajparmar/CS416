@@ -9,6 +9,7 @@ document.getElementById('btn1').addEventListener('click', function() {
     loadPage(pages[0]);
     currentPageIndex = 0;
     updateNavButtons();
+    
 });
 
 document.getElementById('btn2').addEventListener('click', function() {
