@@ -11,7 +11,6 @@ document.getElementById('btn1').addEventListener('click', function() {
     updateNavButtons();
 });
 
-
 document.getElementById('btn2').addEventListener('click', function() {
     loadPage(pages[1]);
     currentPageIndex = 1;
@@ -75,16 +74,27 @@ function loadMap() {
 
     const path = d3.geoPath().projection(projection);
 
+    const countryNameMapping = {
+        "United States": "United States of America",
+        "Russia": "Russian Federation",
+        "South Korea": "Korea (Republic of)",
+        "North Korea": "Korea (Democratic People's Republic of)",
+        // Add more mappings as needed
+    };
+
     // Load the CSV data
     d3.csv("Literacy rates (no pw2).csv").then(data => {
+        console.log("CSV data loaded:", data); // Debugging
+
         // Aggregate literacy rates by country
         const literacyData = {};
         data.forEach(d => {
             const country = d.Country;
-            if (!literacyData[country]) {
-                literacyData[country] = [];
+            const mappedCountry = countryNameMapping[country] || country;
+            if (!literacyData[mappedCountry]) {
+                literacyData[mappedCountry] = [];
             }
-            literacyData[country].push(+d['Literacy rate']);
+            literacyData[mappedCountry].push(+d['Literacy rate']);
         });
 
         // Compute average literacy rate for each country
@@ -92,16 +102,20 @@ function loadMap() {
             literacyData[country] = d3.mean(literacyData[country]);
         }
 
+        console.log("Aggregated literacy data:", literacyData); // Debugging
+
         // Load and display the world map
         d3.json("https://d3js.org/world-110m.v1.json").then(world => {
+            const countries = topojson.feature(world, world.objects.countries).features;
             svg.append("g")
                 .selectAll("path")
-                .data(topojson.feature(world, world.objects.countries).features)
+                .data(countries)
                 .enter().append("path")
                 .attr("d", path)
                 .attr("class", "country")
                 .style("fill", function(d) {
-                    const literacyRate = literacyData[d.properties.name];
+                    const countryName = d.properties.name;
+                    const literacyRate = literacyData[countryName];
                     return literacyRate ? d3.interpolateBlues(literacyRate) : '#ccc';
                 })
                 .on("mouseover", function(event, d) {
@@ -117,9 +131,6 @@ function loadMap() {
                     d3.select(this).style("stroke", null);
                     d3.select(".tooltip").remove();
                 });
-
-            // Highlight regions with highest and lowest literacy rates
-            // (Add annotations as needed)
         });
     });
 }
