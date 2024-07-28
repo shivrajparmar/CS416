@@ -73,12 +73,15 @@ function loadLineChart() {
 
     const parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
 
-    d3.csv("USA Housing Dataset.csv").then(data => {
+    d3.csv("USA_Housing_Dataset.csv").then(data => {
         console.log("Data loaded:", data); // Debugging
         data.forEach(d => {
             d.date = parseDate(d.date);
             d.price = +d.price;
         });
+
+        // Sort data by date
+        data.sort((a, b) => a.date - b.date);
 
         const x = d3.scaleTime()
             .domain(d3.extent(data, d => d.date))
@@ -94,10 +97,10 @@ function loadLineChart() {
 
         svg.append("g")
             .attr("transform", `translate(0,${height - margin.bottom - margin.top})`)
-            .call(d3.axisBottom(x));
+            .call(d3.axisBottom(x).ticks(d3.timeMonth.every(1)).tickFormat(d3.timeFormat("%b %d")));
 
         svg.append("g")
-            .call(d3.axisLeft(y));
+            .call(d3.axisLeft(y).ticks(10).tickFormat(d3.format("$.2s")));
 
         svg.append("path")
             .datum(data)
@@ -118,3 +121,4 @@ function loadLineChart() {
         console.error("Error loading the CSV file:", error); // Debugging
     });
 }
+
