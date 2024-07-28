@@ -54,6 +54,7 @@ function loadPage(page) {
         });
 }
 
+
 function updateNavButtons() {
     document.getElementById('prevBtn').disabled = (currentPageIndex === 0);
     document.getElementById('nextBtn').disabled = (currentPageIndex === pages.length - 1);
