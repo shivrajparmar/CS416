@@ -76,7 +76,7 @@ function loadMap() {
 
     // Load the CSV data
     d3.csv("Literacy rates (no pw2).csv").then(data => {
-        // Parse the data and map literacy rates to countries
+        // Aggregate literacy rates by country
         const literacyData = {};
         data.forEach(d => {
             const country = d.Country;
