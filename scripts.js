@@ -1,3 +1,7 @@
+document.addEventListener('DOMContentLoaded', function() {
+    loadPage('page1.html');
+});
+
 document.getElementById('btn1').addEventListener('click', function() {
     loadPage('page1.html');
 });
@@ -23,16 +27,4 @@ function loadPage(page) {
                 loadLineChart(); // Function to load the line chart visualization
             }
         });
-}
-
-function loadMap() {
-    // D3.js code to create the map visualization
-}
-
-function loadBarChart() {
-    // D3.js code to create the bar chart visualization
-}
-
-function loadLineChart() {
-    // D3.js code to create the line chart visualization
 }
