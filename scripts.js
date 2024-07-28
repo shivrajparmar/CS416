@@ -45,11 +45,11 @@ function loadPage(page) {
         .then(data => {
             document.getElementById('content').innerHTML = data;
             if (page === 'page1.html') {
-                loadMap(); // Function to load the map visualization
-            } else if (page === 'page2.html') {
-                loadBarChart(); // Function to load the bar chart visualization
-            } else if (page === 'page3.html') {
                 loadLineChart(); // Function to load the line chart visualization
+            } else if (page === 'page2.html') {
+                loadScatterPlot(); // Function to load the scatter plot visualization
+            } else if (page === 'page3.html') {
+                loadBarChart(); // Function to load the bar chart visualization
             }
         });
 }
@@ -59,78 +59,47 @@ function updateNavButtons() {
     document.getElementById('nextBtn').disabled = (currentPageIndex === pages.length - 1);
 }
 
-function loadMap() {
+function loadLineChart() {
     const width = 960;
     const height = 500;
 
-    const svg = d3.select("#map")
+    const svg = d3.select("#chart1")
         .append("svg")
         .attr("width", width)
         .attr("height", height);
 
-    const projection = d3.geoMercator()
-        .scale(150)
-        .translate([width / 2, height / 1.5]);
+    // Load and process the data
+    d3.csv("USA_House_Prices.csv").then(data => {
+        // Parse the data and create the line chart
+    });
+}
 
-    const path = d3.geoPath().projection(projection);
+function loadScatterPlot() {
+    const width = 960;
+    const height = 500;
 
-    const countryNameMapping = {
-        "United States": "United States of America",
-        "Russia": "Russian Federation",
-        "South Korea": "Korea (Republic of)",
-        "North Korea": "Korea (Democratic People's Republic of)",
-        // Add more mappings as needed
-    };
+    const svg = d3.select("#chart2")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-    // Load the CSV data
-    d3.csv("Literacy rates (no pw2).csv").then(data => {
-        console.log("CSV data loaded:", data); // Debugging
+    // Load and process the data
+    d3.csv("USA_House_Prices.csv").then(data => {
+        // Parse the data and create the scatter plot
+    });
+}
 
-        // Aggregate literacy rates by country
-        const literacyData = {};
-        data.forEach(d => {
-            const country = d.Country;
-            const mappedCountry = countryNameMapping[country] || country;
-            if (!literacyData[mappedCountry]) {
-                literacyData[mappedCountry] = [];
-            }
-            literacyData[mappedCountry].push(+d['Literacy rate']);
-        });
+function loadBarChart() {
+    const width = 960;
+    const height = 500;
 
-        // Compute average literacy rate for each country
-        for (const country in literacyData) {
-            literacyData[country] = d3.mean(literacyData[country]);
-        }
+    const svg = d3.select("#chart3")
+        .append("svg")
+        .attr("width", width)
+        .attr("height", height);
 
-        console.log("Aggregated literacy data:", literacyData); // Debugging
-
-        // Load and display the world map
-        d3.json("https://d3js.org/world-110m.v1.json").then(world => {
-            const countries = topojson.feature(world, world.objects.countries).features;
-            svg.append("g")
-                .selectAll("path")
-                .data(countries)
-                .enter().append("path")
-                .attr("d", path)
-                .attr("class", "country")
-                .style("fill", function(d) {
-                    const countryName = d.properties.name;
-                    const literacyRate = literacyData[countryName];
-                    return literacyRate ? d3.interpolateBlues(literacyRate) : '#ccc';
-                })
-                .on("mouseover", function(event, d) {
-                    d3.select(this).style("stroke", "black");
-                    const [x, y] = d3.pointer(event);
-                    d3.select("#map").append("div")
-                        .attr("class", "tooltip")
-                        .style("left", `${x + 5}px`)
-                        .style("top", `${y + 5}px`)
-                        .text(`Country: ${d.properties.name}\nLiteracy Rate: ${literacyData[d.properties.name] ? literacyData[d.properties.name].toFixed(2) : 'N/A'}`);
-                })
-                .on("mouseout", function() {
-                    d3.select(this).style("stroke", null);
-                    d3.select(".tooltip").remove();
-                });
-        });
+    // Load and process the data
+    d3.csv("USA_House_Prices.csv").then(data => {
+        // Parse the data and create the bar chart
     });
 }
