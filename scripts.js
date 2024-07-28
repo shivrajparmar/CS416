@@ -9,7 +9,6 @@ document.getElementById('btn1').addEventListener('click', function() {
     loadPage(pages[0]);
     currentPageIndex = 0;
     updateNavButtons();
-    
 });
 
 document.getElementById('btn2').addEventListener('click', function() {
@@ -48,9 +47,9 @@ function loadPage(page) {
             if (page === 'page1.html') {
                 loadLineChart(); // Function to load the line chart visualization
             } else if (page === 'page2.html') {
-                loadScatterPlot(); // Function to load the scatter plot visualization
+                // Implement the function to load the second chart
             } else if (page === 'page3.html') {
-                loadBarChart(); // Function to load the bar chart visualization
+                // Implement the function to load the third chart
             }
         });
 }
@@ -63,44 +62,56 @@ function updateNavButtons() {
 function loadLineChart() {
     const width = 960;
     const height = 500;
+    const margin = { top: 20, right: 30, bottom: 30, left: 40 };
 
     const svg = d3.select("#chart1")
         .append("svg")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Load and process the data
-    d3.csv("USA_House_Prices.csv").then(data => {
-        // Parse the data and create the line chart
-    });
-}
+    const parseDate = d3.timeParse("%Y-%m-%d %H:%M:%S");
 
-function loadScatterPlot() {
-    const width = 960;
-    const height = 500;
+    d3.csv("USA_Housing_Dataset.csv").then(data => {
+        data.forEach(d => {
+            d.date = parseDate(d.date);
+            d.price = +d.price;
+        });
 
-    const svg = d3.select("#chart2")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        const x = d3.scaleTime()
+            .domain(d3.extent(data, d => d.date))
+            .range([0, width - margin.left - margin.right]);
 
-    // Load and process the data
-    d3.csv("USA_House_Prices.csv").then(data => {
-        // Parse the data and create the scatter plot
-    });
-}
+        const y = d3.scaleLinear()
+            .domain([0, d3.max(data, d => d.price)])
+            .range([height - margin.top - margin.bottom, 0]);
 
-function loadBarChart() {
-    const width = 960;
-    const height = 500;
+        const line = d3.line()
+            .x(d => x(d.date))
+            .y(d => y(d.price));
 
-    const svg = d3.select("#chart3")
-        .append("svg")
-        .attr("width", width)
-        .attr("height", height);
+        svg.append("g")
+            .attr("transform", `translate(0,${height - margin.bottom - margin.top})`)
+            .call(d3.axisBottom(x));
 
-    // Load and process the data
-    d3.csv("USA_House_Prices.csv").then(data => {
-        // Parse the data and create the bar chart
+        svg.append("g")
+            .call(d3.axisLeft(y));
+
+        svg.append("path")
+            .datum(data)
+            .attr("fill", "none")
+            .attr("stroke", "steelblue")
+            .attr("stroke-width", 1.5)
+            .attr("d", line);
+
+        // Annotations (example)
+        svg.append("text")
+            .attr("x", x(parseDate("2014-05-10 00:00:00")))
+            .attr("y", y(800000))
+            .attr("dy", "-0.5em")
+            .attr("text-anchor", "middle")
+            .style("fill", "red")
+            .text("Example Peak");
     });
 }
