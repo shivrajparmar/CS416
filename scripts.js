@@ -17,7 +17,6 @@ document.getElementById('btn2').addEventListener('click', function() {
     updateNavButtons();
 });
 
-
 document.getElementById('btn3').addEventListener('click', function() {
     loadPage(pages[2]);
     currentPageIndex = 2;
