@@ -768,7 +768,7 @@ function showDetailedView(data, type) {
         .style("padding", "10px")
         .style("box-shadow", "2px 2px 10px rgba(0,0,0,0.5)");
 
-    detailedView.append("h3").text(`Detailed View for ${data.key} ${type}`);
+    detailedView.append("h3").text(`Detailed View for ${data.key}`);
 
     detailedView.append("p").text(`Number of Houses: ${data.values.length}`);
     detailedView.append("p").text(`Median Price: ${d3.format("$.2s")(data.median)}`);
