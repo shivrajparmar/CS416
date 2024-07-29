@@ -241,7 +241,7 @@ function loadBoxPlotByBedrooms() {
             .attr("y2", d => y(d.max))
             .attr("stroke", "black");
 
-        // Add x-axis label
+        
         svg.append("text")
             .attr("class", "x label")
             .attr("text-anchor", "middle")
@@ -249,7 +249,7 @@ function loadBoxPlotByBedrooms() {
             .attr("y", height - margin.top - margin.bottom + 50)
             .text("Number of Bedrooms");
 
-        // Add y-axis label
+       
         svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "middle")
@@ -258,7 +258,7 @@ function loadBoxPlotByBedrooms() {
             .attr("y", -margin.left + 20)
             .text("Price (USD)");
         
-        // Add overall title
+    
         svg.append("text")
         .attr("class", "title")
         .attr("text-anchor", "middle")
@@ -266,7 +266,7 @@ function loadBoxPlotByBedrooms() {
         .attr("y", -20)
         .text("Distribution of House Prices by Number of Bedrooms");
 
-        // Add Annotations
+        
         const type = d3.annotationLabel;
 
         const annotations = [
@@ -315,7 +315,6 @@ function loadBoxPlotByBathrooms() {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Add the hover instruction
     container.append("div")
         .attr("class", "hover-instruction")
         .style("position", "absolute")
@@ -466,7 +465,7 @@ function loadBoxPlotByBathrooms() {
             .attr("y2", d => y(d.max))
             .attr("stroke", "black");
 
-        // Add x-axis label
+       
         svg.append("text")
             .attr("class", "x label")
             .attr("text-anchor", "middle")
@@ -474,7 +473,7 @@ function loadBoxPlotByBathrooms() {
             .attr("y", height - margin.top - margin.bottom + 50)
             .text("Number of Bathrooms");
 
-        // Add y-axis label
+     
         svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "middle")
@@ -483,7 +482,7 @@ function loadBoxPlotByBathrooms() {
             .attr("y", -margin.left + 20)
             .text("Price (USD)");
 
-        // Add overall title
+    
         svg.append("text")
             .attr("class", "title")
             .attr("text-anchor", "middle")
@@ -491,10 +490,10 @@ function loadBoxPlotByBathrooms() {
             .attr("y", -20)
             .text("Distribution of House Prices by Number of Bathrooms");
 
-        // Find the highest price and the corresponding number of bathrooms
+        
         const highestPriceData = data.reduce((max, d) => d.price > max.price ? d : max, data[0]);
 
-        // Add Annotations
+      
         const type = d3.annotationLabel;
 
         const annotations = [
@@ -531,13 +530,13 @@ function loadBoxPlotByBathrooms() {
 }
 
 function showDetailedView(data, type) {
-    // Calculate the average price
+  
     const avgPrice = d3.mean(data.values, d => d.price);
 
-    // Clear previous detailed view if any
+   
     d3.select("#detailedView").remove();
 
-    // Create a new detailed view container
+   
     const detailedView = d3.select("body").append("div")
     .attr("id", "detailedView")
     .style("position", "absolute")
@@ -557,14 +556,14 @@ function showDetailedView(data, type) {
     detailedView.append("p").text(`Average Price: ${d3.format("$.2s")(avgPrice)}`);
     detailedView.append("p").text(`Max Price: ${d3.format("$.2s")(data.max)}`);
 
-    // Close button for detailed view
+  
     detailedView.append("button")
         .text("Close")
         .on("click", () => detailedView.remove());
 }
 
 
-// New Function for City Price Comparison
+
 function loadCityPriceComparison() {
     const width = 960;
     const height = 500;
@@ -678,7 +677,7 @@ function loadCityPriceComparison() {
                 showDetailedView(d, "City");
             });
 
-        // Add x-axis label
+       
         svg.append("text")
             .attr("class", "x label")
             .attr("text-anchor", "middle")
@@ -686,7 +685,7 @@ function loadCityPriceComparison() {
             .attr("y", height - margin.top - margin.bottom + 80) // Adjusted for rotated text
             .text("City");
 
-        // Add y-axis label
+       
         svg.append("text")
             .attr("class", "y label")
             .attr("text-anchor", "middle")
@@ -695,7 +694,7 @@ function loadCityPriceComparison() {
             .attr("y", -margin.left + 20)
             .text("Average Price (USD)");
 
-        // Add overall title
+       
         svg.append("text")
             .attr("class", "title")
             .attr("text-anchor", "middle")
@@ -703,11 +702,11 @@ function loadCityPriceComparison() {
             .attr("y", -20)
             .text("Comparison of House Prices by City");
 
-        // Find the city with the highest average price
+      
         const mostExpensiveCity = d3.max(barData, d => d.avg);
         const mostExpensiveCityData = barData.find(d => d.avg === mostExpensiveCity);
 
-        // Add Annotations
+      
         const type = d3.annotationLabel;
 
         const annotations = [
@@ -743,19 +742,19 @@ function loadCityPriceComparison() {
 }
 
 function showDetailedView(data, type) {
-    // Calculate the average price
+  
     const avgPrice = d3.mean(data.values, d => d.price);
-    // Calculate the average number of bedrooms and bathrooms if the type is City
+
     let avgBedrooms, avgBathrooms;
     if (type === "City") {
         avgBedrooms = d3.mean(data.values, d => d.bedrooms);
         avgBathrooms = d3.mean(data.values, d => d.bathrooms);
     }
 
-    // Clear previous detailed view if any
+ 
     d3.select("#detailedView").remove();
 
-    // Create a new detailed view container
+    
     const detailedView = d3.select("body").append("div")
         .attr("id", "detailedView")
         .style("position", "absolute")
@@ -775,7 +774,7 @@ function showDetailedView(data, type) {
     detailedView.append("p").text(`Average Price: ${d3.format("$.2s")(avgPrice)}`);
     detailedView.append("p").text(`Max Price: ${d3.format("$.2s")(data.max)}`);
     
-    // Add average number of bedrooms and bathrooms if the type is City
+
     if (type === "City") {
         detailedView.append("p").text(`Average Bedrooms: ${avgBedrooms.toFixed(2)}`);
         detailedView.append("p").text(`Average Bathrooms: ${avgBathrooms.toFixed(2)}`);
