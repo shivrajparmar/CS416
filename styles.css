@@ -1,58 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
 }
 
 #content {
-    padding: 20px;
+    padding: 40px;
+    padding-bottom: 100px; /* Added padding to avoid overlap with the nav bar */
 }
-
 
 nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #333;
-    padding: 10px 0;
+    background-color: #007bff;
+    padding: 15px 0;
     position: fixed;
     bottom: 0;
     width: 100%;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px; /* Added margin to separate from the graphs */
 }
 
 nav button {
-    background-color: #444;
+    background-color: #0056b3;
     color: white;
     border: none;
-    padding: 10px 20px;
-    margin: 0 5px;
+    padding: 12px 25px;
+    margin: 0 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
+    font-size: 16px;
+    border-radius: 5px;
 }
 
 nav button:hover {
-    background-color: #555;
+    background-color: #004494;
+    transform: scale(1.05);
 }
 
 nav button:disabled {
-    background-color: #666;
+    background-color: #b0c4de;
     cursor: not-allowed;
 }
 
 .tooltip {
     position: absolute;
     background-color: white;
-    padding: 5px;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     pointer-events: none;
-    font-size: 12px;
+    font-size: 14px;
+    color: #333;
 }
 
 .box {
-    fill: steelblue;
+    fill: #007bff;
     stroke: black;
     stroke-width: 1px;
+    transition: fill 0.3s;
 }
 
 .median,
@@ -60,4 +72,48 @@ nav button:disabled {
 .max {
     stroke: black;
     stroke-width: 2px;
+}
+
+.hover-instruction, .text-explanation {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 16px;
+    color: #333;
+    max-width: 300px;
+}
+
+#page-title {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    width: 80%;
+}
+
+#page-title h1 {
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+#page-title p {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0;
+}
+
+h1 {
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
 }
